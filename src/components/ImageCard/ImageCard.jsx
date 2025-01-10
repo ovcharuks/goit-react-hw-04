@@ -9,5 +9,4 @@ const ImageCard = ({photo}) => {
 		</div>
     )
 }
-
 export default ImageCard;
