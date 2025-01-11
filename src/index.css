@@ -28,6 +28,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  position: relative;
 }
 
 h1 {
@@ -67,6 +68,6 @@ button:focus-visible {
   }
 }
 
- .search-feald {
 
- }
+
+
