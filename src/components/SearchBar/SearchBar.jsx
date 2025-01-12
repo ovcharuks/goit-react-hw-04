@@ -1,3 +1,4 @@
+import styles from "./SearchBar.module.css";
 const SearchBar = ({ notify, onSearch }) => {
   const checkInputValue = (event) => {
     event.preventDefault();
@@ -17,7 +18,9 @@ const SearchBar = ({ notify, onSearch }) => {
           placeholder="Search images and photos"
           name="search"
         />
-        <button type="submit">Search</button>
+        <button type="submit" className={styles.searchButton}>
+          Search
+        </button>
       </form>
     </header>
   );
