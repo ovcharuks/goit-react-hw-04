@@ -1,4 +1,18 @@
 .imageList {
+    /* padding: 0 6px;
+    float: left;
+    width: 24.99999%; */
+    list-style: none;
     display: flex;
     flex-wrap: wrap;
+    gap: 4px;
+    padding: 0 4px;
+}
+
+.card {
+    flex: content;
+    padding: 0 4px;
+
+    height: 250px;
+    margin: 30px;
 }

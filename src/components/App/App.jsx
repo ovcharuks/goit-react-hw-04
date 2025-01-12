@@ -8,6 +8,7 @@ import ImageGallery from "../ImageGallery/ImageGallery";
 import Loader from "../Loader/Loader";
 import ErrorMessage from "/src/components/ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
+import ImageModal from "../ImageModal/ImageModal";
 
 const notify = () => toast("необхідно ввести текст для пошуку зображень");
 
@@ -20,7 +21,10 @@ function App() {
   const [isError, setIserror] = useState(false);
   const [serchValue, setSerchValue] = useState("");
   const [page, setPage] = useState(0);
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
 
+  console.log(selectedPhoto);
+  console.log(photos);
   const handleSearchValue = (valueFromInput) => {
     setSerchValue(valueFromInput);
   };
@@ -31,19 +35,28 @@ function App() {
     });
   };
 
+  const openModal = (image) => {
+    setSelectedPhoto(image);
+  };
+
+  const closeModal = () => {
+    setSelectedPhoto(null);
+  };
+
   useEffect(() => {
-    // axios.get('https://api.unsplash.com/photos/?;client_id=nAqYtCF7l8JE6SJBDYVHGnZ2Qc3TJV6mXaOTUZQGnWs')
-    // .then((response)=> setPhotos(response.data))
+    if (!serchValue) {
+      return;
+    }
     const getPhotosData = async () => {
       try {
         setIsLoading(true);
         setIserror(false);
-        setSerchValue("");
+
         const response = await axios.get(`${BASE_URL}/search/photos`, {
           params: {
             client_id: "nAqYtCF7l8JE6SJBDYVHGnZ2Qc3TJV6mXaOTUZQGnWs",
             page,
-            per_page: 1,
+            per_page: 9,
             query: serchValue,
           },
         });
@@ -58,6 +71,7 @@ function App() {
     getPhotosData();
   }, [serchValue, page]);
 
+  console.log("photoURLS", selectedPhoto);
   return (
     <>
       <SearchBar notify={notify} onSearch={handleSearchValue} />
@@ -65,9 +79,18 @@ function App() {
         <h2>Необхідно ввести текст для пошуку зображень</h2>
       )}
       {isLoading && <Loader />}
-      {photos.length > 0 && <ImageGallery photos={photos} />}
+      {photos.length > 0 && (
+        <ImageGallery photos={photos} onPhotoClick={openModal} />
+      )}
       {isError && <ErrorMessage />}
       <LoadMoreBtn onNextPage={nextPagePusher} />
+      {
+        // photos.length > 0
+        selectedPhoto !== null && (
+          <ImageModal photo={selectedPhoto} onClose={closeModal} />
+        )
+      }
+
       <div>
         <Toaster />
       </div>

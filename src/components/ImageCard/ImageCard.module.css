@@ -1,0 +1,28 @@
+img {
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.photoBox {
+    border: 1px solid #ccc;
+    height: 250px;
+    width: 250px;
+}
+
+.photoBox:hover {
+    border: 1px solid #777;
+}
+
+
+
+.cardDescription {
+    padding: 15px;
+    text-align: center;
+    z-index: -1;
+}
+
+/* * {
+    box-sizing: border-box;
+} */
