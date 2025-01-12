@@ -27,6 +27,8 @@ function App() {
   console.log(photos);
   const handleSearchValue = (valueFromInput) => {
     setSerchValue(valueFromInput);
+    setPage(1);
+    setPhotos([]);
   };
 
   const nextPagePusher = (nextPage) => {
@@ -60,8 +62,8 @@ function App() {
             query: serchValue,
           },
         });
-        console.log(response.data);
-        setPhotos(response.data.results);
+
+        setPhotos((prev) => [...prev, ...response.data.results]);
       } catch (error) {
         setIserror(true);
       } finally {
@@ -83,7 +85,7 @@ function App() {
         <ImageGallery photos={photos} onPhotoClick={openModal} />
       )}
       {isError && <ErrorMessage />}
-      <LoadMoreBtn onNextPage={nextPagePusher} />
+      {photos.length > 0 && <LoadMoreBtn onNextPage={nextPagePusher} />}
       {
         // photos.length > 0
         selectedPhoto !== null && (
